@@ -5,7 +5,18 @@ function Auth({ setToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isValidEmail = (email) => {
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSignUp = async () => {
+    if (!isValidEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     const res = await fetch(`http://localhost:8000/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,6 +32,11 @@ function Auth({ setToken }) {
   };
 
   const handleSignIn = async () => {
+    if (!isValidEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     const res = await fetch(`http://localhost:8000/signIn`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,8 +54,7 @@ function Auth({ setToken }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", backgroundColor: "#1a1a1a", color: "#f5f5f5" }}>
-      {/* Enhanced Welcome Message */}
-      <h1 style={{ color: "#f5f5f5", marginBottom: "24px", fontSize: "2em", fontWeight: "bold" }}>Hello! Join Our Platform</h1>
+      <h1 style={{ color: "#f5f5f5", marginBottom: "24px", fontSize: "2em", fontWeight: "bold" }}>Hello! Join Our Platform, miniStackOverflow</h1>
       
       <div style={{ width: "100%", maxWidth: "400px" }}>
         <input

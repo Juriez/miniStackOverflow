@@ -22,6 +22,10 @@ function NotificationList({ token }) {
     navigate(`/post/${id}`);
   };
 
+  const goToHome = () => {
+    navigate(`/`);
+  };
+
   return (
     <div style={{ backgroundColor: "#2c2c2c", padding: "16px", borderRadius: "5px" }}>
       <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "16px", color: "#fff" }}>Notifications</h2>
@@ -38,8 +42,15 @@ function NotificationList({ token }) {
           </div>
         ))
       ) : (
-        <p style={{ color: "#fff" }}>No notifications available.</p>
+        <p style={{ color: "#fff" }}>There are no notifications.</p>
       )}
+
+      <button
+        onClick={goToHome}
+        style={{ marginTop: "16px", backgroundColor: "#28a745", color: "#fff", padding: "10px 20px", borderRadius: "5px", border: "none", cursor: "pointer" }}
+      >
+        Back to Home
+      </button>
     </div>
   );
 }
