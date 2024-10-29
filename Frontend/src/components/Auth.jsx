@@ -1,23 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import './Auth.css'; // Import custom styles
 
 function Auth({ setToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(true); // State to toggle between Sign Up and Sign In
 
-  const isValidEmail = (email) => {
-  
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // Reset fields when switching between Sign Up and Sign In
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, [isSignUp]);
 
   const handleSignUp = async () => {
-    if (!isValidEmail(email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    const res = await fetch(`http://localhost:8000/signup`, {
+    const res = await fetch('http://localhost:8000/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -32,12 +29,7 @@ function Auth({ setToken }) {
   };
 
   const handleSignIn = async () => {
-    if (!isValidEmail(email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    const res = await fetch(`http://localhost:8000/signIn`, {
+    const res = await fetch('http://localhost:8000/signIn', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -53,36 +45,54 @@ function Auth({ setToken }) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", backgroundColor: "#1a1a1a", color: "#f5f5f5" }}>
-      <h1 style={{ color: "#f5f5f5", marginBottom: "24px", fontSize: "2em", fontWeight: "bold" }}>Hello! Join Our Platform, miniStackOverflow</h1>
-      
-      <div style={{ width: "100%", maxWidth: "400px" }}>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100"> {/* Background color */}
+      <h1 className="text-3xl font-bold mb-4 welcome-text text-gray-800"> {/* Text color */}
+        Hello! Join our platform miniStackOverflow
+      </h1>
+      <div className="mb-4">
+        <button
+          onClick={() => setIsSignUp(true)}
+          className={`py-2 px-4 rounded ${isSignUp ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-800'}`}
+        >
+          Register
+        </button>
+        <button
+          onClick={() => setIsSignUp(false)}
+          className={`py-2 px-4 rounded ${!isSignUp ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-800'}`}
+        >
+          Login
+        </button>
+      </div>
+      <div className={`form-container ${isSignUp ? 'sign-up' : 'sign-in'} bg-white p-6 rounded shadow-md`}>
         <input
           type="email"
           placeholder="Email"
-          style={{ width: "100%", padding: "10px", marginBottom: "8px", borderRadius: "5px", border: "1px solid #ccc", color: "#000" }}
+          className="block w-full p-2 mb-2 border rounded"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          style={{ width: "100%", padding: "10px", marginBottom: "16px", borderRadius: "5px", border: "1px solid #ccc", color: "#000" }}
+          className="block w-full p-2 mb-4 border rounded"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <button
-          onClick={handleSignUp}
-          style={{ width: "100%", backgroundColor: "#007bff", color: "#fff", padding: "10px", borderRadius: "5px", marginBottom: "8px", border: "none", cursor: "pointer" }}
-        >
-          Register
-        </button>
-        <button
-          onClick={handleSignIn}
-          style={{ width: "100%", backgroundColor: "#28a745", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer" }}
-        >
-         Login
-        </button>
+        {isSignUp ? (
+          <button
+            onClick={handleSignUp}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded mb-2"
+          >
+            Register
+          </button>
+        ) : (
+          <button
+            onClick={handleSignIn}
+            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+          >
+            Login
+          </button>
+        )}
       </div>
     </div>
   );
