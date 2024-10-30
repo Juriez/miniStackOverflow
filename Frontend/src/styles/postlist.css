@@ -57,6 +57,7 @@ body {
   textarea {
     min-height: 100px; /* Minimum height for textarea */
     resize: vertical; /* Allow vertical resizing */
+    color: black;
   }
   
   .post-card {

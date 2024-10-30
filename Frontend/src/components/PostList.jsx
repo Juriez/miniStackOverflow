@@ -298,7 +298,7 @@ const handleToggleCodeSnippet = async (postId, post) => {
 
           {/* Display the fetched code content if visible */}
           {visibleCodeSnippetId === post._id && codeContent && (
-            <pre className="mt-4 p-2 bg-gray-200 border rounded">
+            <pre className="mt-4 p-2 bg-green-600 border rounded">
               {codeContent}
             </pre>
           )}
