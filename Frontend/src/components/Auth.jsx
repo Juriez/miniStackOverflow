@@ -1,19 +1,32 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './Auth.css'; // Import custom styles
+import './Auth.css';
 
 function Auth({ setToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(true); // State to toggle between Sign Up and Sign In
+  const [isSignUp, setIsSignUp] = useState(true);
+  const [emailError, setEmailError] = useState('');
 
-  // Reset fields when switching between Sign Up and Sign In
   useEffect(() => {
     setEmail('');
     setPassword('');
+    setEmailError(''); // Clear error when switching between Sign Up and Sign In
   }, [isSignUp]);
 
+  // Email validation function
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSignUp = async () => {
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+    setEmailError('');
+
     const res = await fetch('http://localhost:8000/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -29,6 +42,12 @@ function Auth({ setToken }) {
   };
 
   const handleSignIn = async () => {
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+    setEmailError('');
+
     const res = await fetch('http://localhost:8000/signIn', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -45,8 +64,8 @@ function Auth({ setToken }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100"> {/* Background color */}
-      <h1 className="text-3xl font-bold mb-4 welcome-text text-gray-800"> {/* Text color */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold mb-4 welcome-text text-gray-800">
         Hello! Join our platform miniStackOverflow
       </h1>
       <div className="mb-4">
@@ -69,14 +88,18 @@ function Auth({ setToken }) {
           placeholder="Email"
           className="block w-full p-2 mb-2 border rounded"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (emailError) setEmailError(''); // Clear error on re-type
+          }}
         />
+        {emailError && <p className="text-red-500 text-sm mb-2">{emailError}</p>}
         <input
           type="password"
           placeholder="Password"
           className="block w-full p-2 mb-4 border rounded"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         {isSignUp ? (
           <button

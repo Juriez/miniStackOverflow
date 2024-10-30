@@ -8,7 +8,7 @@ body {
   }
   
   h2 {
-    color: #2c3e50; /* Dark navy color for headings */
+    color: #eaedf0; /* Dark navy color for headings */
     margin-bottom: 10px;
   }
   
@@ -40,6 +40,7 @@ body {
     border-radius: 5px; /* Rounded corners */
     padding: 10px; /* Space inside the input */
     width: 100%; /* Full width */
+    color: black;
     margin-bottom: 10px; /* Space below the input */
     transition: border-color 0.3s ease; /* Smooth transition for focus effect */
   }
@@ -49,6 +50,7 @@ body {
     border-color: #34db60; /* Blue border on focus */
     outline: none; /* Remove default outline */
     border-width: 1.5px; /* Increase border width */
+    color: black;
   }
   
   
@@ -65,7 +67,7 @@ body {
     margin-bottom: 20px; /* Space below each post */
     transition: transform 0.2s, box-shadow 0.2s; /* Smooth transitions */
   }
-  
+    
   .post-card:hover {
     transform: scale(1.02); /* Slightly enlarge on hover */
     box-shadow: 0 6px 30px rgba(245, 158, 17, 0.15); /* Enhanced shadow on hover */
@@ -81,7 +83,7 @@ body {
   }
   
   .text-blue-500:hover {
-    color: #485157; /* Darker blue on link hover */
+    color: #496072; /* Darker blue on link hover */
   }
   
   /* Responsive Design */
@@ -130,7 +132,7 @@ body {
   border-radius: 0.3rem; /* Slightly rounded corners */
   font-weight: bold; /* Bold text */
   font-size: 0.75rem; /* Smaller text size */
-  color: white; /* White text */
+  color: black; /* White text */
   cursor: pointer; /* Pointer on hover */
   transition: all 0.3s ease; /* Smooth transition for hover effects */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow effect */
@@ -155,7 +157,7 @@ body {
   border-radius: 0.3rem; /* Slightly rounded corners */
   font-weight: bold; /* Bold text */
   font-size: 0.75rem; /* Smaller text size */
-  color: white; /* White text */
+  color: black; /* White text */
   cursor: pointer; /* Pointer on hover */
   transition: all 0.3s ease; /* Smooth transition for hover effects */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow effect */

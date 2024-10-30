@@ -5,6 +5,7 @@ const notificationSchema = new mongoose.Schema({
   postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
   message: { type: String },
   //createdAt: { type: Date, default: Date.now }
+  //viewed: { type: Boolean, default: false }
 }, { timestamps: true }); // Automatically adds createdAt and updatedAt fields);
 
 module.exports = mongoose.model('Notification', notificationSchema);

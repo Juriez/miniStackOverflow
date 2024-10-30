@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const SinglePost = ({ token }) => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
-  const [codeContent, setCodeContent] = useState(null); // State for code snippet content
-  const [visibleCodeSnippet, setVisibleCodeSnippet] = useState(false); // State to manage code snippet visibility
+  const [codeContent, setCodeContent] = useState(null);
+  const [visibleCodeSnippet, setVisibleCodeSnippet] = useState(false);
 
   useEffect(() => {
     fetchPost();
@@ -43,8 +44,8 @@ const SinglePost = ({ token }) => {
         }
 
         const code = await res.text();
-        setCodeContent(code); // Set the code content state
-        setVisibleCodeSnippet(!visibleCodeSnippet); // Toggle visibility state
+        setCodeContent(code);
+        setVisibleCodeSnippet(!visibleCodeSnippet);
       } catch (err) {
         setError(err.message);
       }
@@ -62,19 +63,20 @@ const SinglePost = ({ token }) => {
   const formattedDate = new Date(post.createdAt).toLocaleString();
 
   return (
-    <div className="p-4 bg-white rounded shadow">
+    <div className="p-4 bg-black rounded shadow">
       <h2 className="text-2xl font-bold">{post.title}</h2>
       <p className="mt-2">{post.content}</p>
 
       {post.codeSnippetUrl && (
-       <button
-       onClick={handleViewCodeSnippet}
-       className="text-blue-500 bg-transparent hover:bg-blue-200 hover:text-blue-700 transition duration-200 ease-in-out py-1 px-2 rounded shadow hover:shadow-lg" >
-       {visibleCodeSnippet ? "Hide Code Snippet" : "View Code Snippet"}
-     </button>     
+        <button
+          onClick={handleViewCodeSnippet}
+          className="text-blue-500 bg-transparent hover:bg-blue-200 hover:text-blue-700 transition duration-200 ease-in-out py-1 px-2 rounded shadow hover:shadow-lg"
+        >
+          {visibleCodeSnippet ? "Hide Code Snippet" : "View Code Snippet"}
+        </button>
       )}
 
-      {visibleCodeSnippet && codeContent && ( // Render code content if visible
+      {visibleCodeSnippet && codeContent && (
         <pre className="mt-4 p-2 bg-gray-200 border rounded">
           {codeContent}
         </pre>
@@ -84,7 +86,15 @@ const SinglePost = ({ token }) => {
         <p className="text-green-600 mt-2">Post author: {post.email}</p>
       )}
 
-      <p className="text-gray-600 mt-2">Arrival time: {formattedDate}</p>
+      <p className="text-blue-600 mt-2">Arrival time: {formattedDate}</p>
+
+      {/* Go to Home button */}
+      <button
+        onClick={() => navigate('/')}
+        className="mt-4 text-white bg-blue-500 hover:bg-blue-600 transition duration-200 ease-in-out py-2 px-4 rounded shadow hover:shadow-lg"
+      >
+        Go to Home
+      </button>
     </div>
   );
 };

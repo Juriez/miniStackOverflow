@@ -5,4 +5,4 @@ const cleanOldNotifications = async () => {
   await Notification.deleteMany({ createdAt: { $lt: oldDate } });
 };
 
-setInterval(cleanOldNotifications,  1* 60 * 1000); // Run 1min delay
+setInterval(cleanOldNotifications,  60* 60 * 1000); // Run 1min delay

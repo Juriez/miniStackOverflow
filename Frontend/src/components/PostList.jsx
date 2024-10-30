@@ -146,9 +146,7 @@ const handleToggleCodeSnippet = async (postId, post) => {
   return (
     <div>
       <div className="flex justify-between m-4">
-        {/* <h2 className="text-xl font-bold mb-4">
-         {showingUserPosts ? "My Posts" : "Posts of Others"}
-        </h2> */}
+        
         <div>
        <button
               onClick={fetchUserPosts}
@@ -186,7 +184,7 @@ const handleToggleCodeSnippet = async (postId, post) => {
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            placeholder=" Questions (required)"
+            placeholder="Questions (required)"
             className="block w-full p-2 mb-2 border rounded"
           />
           <p><b>Description  </b></p>
@@ -237,6 +235,7 @@ const handleToggleCodeSnippet = async (postId, post) => {
                 value={language}
                 onChange={e => setLanguage(e.target.value)}
                 className="block w-full p-2 mb-2 border rounded"
+                style={{ color: 'black', fontWeight: 'bold' }}
               >
                 <option value="">Select language</option>
                 <option value="c">C</option>

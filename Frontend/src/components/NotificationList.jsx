@@ -70,11 +70,11 @@ function NotificationList({ token }) {
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f3f4f6')} // Gray-100 on hover
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f2f4d0')} // Reset background
           >
-            <p style={{ marginRight: '1rem' }}>{notification.message}</p>
-            <p style={{ marginRight: '1rem', color: 'rgb(157, 135, 157)' }}>
+            <p style={{ marginRight: '1rem', color: 'rgb(0, 0, 255)' }}>{notification.message}</p>
+            <p style={{ marginRight: '1rem', color: 'rgb(0, 0, 255)' }}>
               <i>Post author: {notification.email}</i>
             </p>
-            <p style={{ marginRight: '1rem', color: 'rgb(157, 135, 157)' }}>
+            <p style={{ marginRight: '1rem', color: 'rgb(0, 0, 255)' }}>
               <i>Arrival time: {notification.createdAt}</i>
             </p>
             <button
