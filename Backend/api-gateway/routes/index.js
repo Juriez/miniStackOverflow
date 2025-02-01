@@ -12,27 +12,27 @@ app.use(express.json());
 app.use(
   '/user', // Route for User Service
   createProxyMiddleware({
-    target: 'http://localhost:8001', // User Service URL
+    target: 'http://localhost:8000', 
     changeOrigin: true,
-    pathRewrite: { '^/user': '' }, // Remove /user prefix before forwarding
+    pathRewrite: { '^/user': '' }, 
   })
 );
 
 app.use(
-  '/post', // Route for Post Service
+  '/post', 
   createProxyMiddleware({
     target: 'http://localhost:8002', // Post Service URL
     changeOrigin: true,
-    pathRewrite: { '^/post': '' }, // Remove /post prefix before forwarding
+    pathRewrite: { '^/post': '' }, 
   })
 );
 
 app.use(
-  '/notification', // Route for Notification Service
+  '/notification', 
   createProxyMiddleware({
-    target: 'http://localhost:8003', // Notification Service URL
+    target: 'http://localhost:8003', 
     changeOrigin: true,
-    pathRewrite: { '^/notification': '' }, // Remove /notification prefix before forwarding
+    pathRewrite: { '^/notification': '' }, 
   })
 );
 

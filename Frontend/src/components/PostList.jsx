@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import "../styles/postlist.css"; // Adjust according to your actual folder structure
 
-function PostList({ token }) {
+function  PostList({ token }) {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -23,7 +23,7 @@ function PostList({ token }) {
   }, [token]);
 
   const fetchPosts = async () => {
-    const res = await fetch(`http://localhost:8000/post`, {
+    const res = await fetch(`http://localhost:8000/post/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -32,7 +32,7 @@ function PostList({ token }) {
   };
 
   const fetchUserPosts = async () => {
-    const res = await fetch(`http://localhost:8000/mypost`, {
+    const res = await fetch(`http://localhost:8000/post/mypost/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -83,7 +83,7 @@ function PostList({ token }) {
       formData.append('codeSnippet', file); // Append the uploaded file if present
     }
   
-    const res = await fetch(`http://localhost:8000/post`, {
+    const res = await fetch(`http://localhost:8000/post/`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -111,9 +111,6 @@ function PostList({ token }) {
     .slice() // Create a shallow copy of posts to avoid mutating the original array
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by creation date (most recent first)
 
-
-    
-/// onk kahini ekhane
 
 // Handle view/hide code snippet
 const handleToggleCodeSnippet = async (postId, post) => {

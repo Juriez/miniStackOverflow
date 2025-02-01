@@ -27,7 +27,7 @@ function Auth({ setToken }) {
     }
     setEmailError('');
 
-    const res = await fetch('http://localhost:8000/signup', {
+    const res = await fetch('http://localhost:8000/user/signUp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -48,7 +48,7 @@ function Auth({ setToken }) {
     }
     setEmailError('');
 
-    const res = await fetch('http://localhost:8000/signIn', {
+    const res = await fetch('http://localhost:8000/user/signIn', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -57,6 +57,7 @@ function Auth({ setToken }) {
     if (res.ok) {
       const data = await res.json();
       setToken(data.token);
+      localStorage.setItem("token", data.token);
     } else {
       const errorData = await res.json();
       alert(errorData.message);

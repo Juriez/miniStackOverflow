@@ -9,13 +9,16 @@ const crypto = require('crypto');
 const { publishEvent } = require('../config/eventPublisher'); // Import event publisher
 
 // Create post
-router.post('/post', authMiddleware, upload.single('codeSnippet'), async (req, res) => {
+router.post('/', authMiddleware, upload.single('codeSnippet'), async (req, res) => {
+  console.log("hererererere")
   const { title, content, language } = req.body;
   let codeSnippetUrl = null;
-
+  console.log(process.env.MINIO_ENDPOINT);
   // Handle file upload
   if (req.file) {
+    
     const objectName = `${crypto.randomBytes(16).toString('hex')}-${req.file.originalname}`;
+    // console.log(req.file)
     await minioClient.putObject(BUCKET_NAME, objectName, req.file.buffer);
     codeSnippetUrl = `http://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}/${BUCKET_NAME}/${objectName}`;
   } 
@@ -38,6 +41,7 @@ router.post('/post', authMiddleware, upload.single('codeSnippet'), async (req, r
       rust: 'rs',
       typescript: 'ts',
     };
+    console.log(process.env.MINIO_ENDPOINT);
     const fileExtension = extensionMap[language] || 'txt'; // Default to .txt if language not found
     const objectName = `${title}.${fileExtension}`; // Use title as filename
     const buffer = Buffer.from(req.body.codeSnippet, 'utf-8');
@@ -63,7 +67,7 @@ router.post('/post', authMiddleware, upload.single('codeSnippet'), async (req, r
 });
 
 // Get posts of others
-router.get('/post', authMiddleware, async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   const posts = await Post.find({ email: { $ne: req.user.email } }).sort({ createdAt: -1 });
   res.json(posts);
 });
@@ -75,7 +79,7 @@ router.get('/mypost', authMiddleware, async (req, res) => {
 });
 
 // Get single user post
-router.get('/post/:id', authMiddleware, async (req, res) => {
+router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post) {
@@ -89,7 +93,7 @@ router.get('/post/:id', authMiddleware, async (req, res) => {
 });
 
 // Add this route in postRoute.js
-router.get('/post/code/:objectName', authMiddleware, async (req, res) => {
+router.get('/code/:objectName', authMiddleware, async (req, res) => {
   const { objectName } = req.params;
 
   try {
